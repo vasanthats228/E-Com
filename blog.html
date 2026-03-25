@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <title>Stackly | E-Commerce Blog - Seller Tips & Insights</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #fafbfc;
+            color: #1a1a2e;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+            overflow-x: hidden;
+        }
+
+        /* Animation Classes */
+        .animate-left, .animate-right, .animate-up, .animate-down, .animate-scale {
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .animate-left { transform: translateX(-60px); }
+        .animate-right { transform: translateX(60px); }
+        .animate-up { transform: translateY(50px); }
+        .animate-down { transform: translateY(-50px); }
+        .animate-scale { transform: scale(0.9); }
+        
+        .visible {
+            opacity: 1;
+            transform: translateX(0) translateY(0) scale(1);
+        }
+
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+        .delay-5 { transition-delay: 0.5s; }
+
+        /* Color Variables */
+        :root {
+            --primary: #fb641b;
+            --primary-dark: #e05a16;
+            --primary-light: #ff8c42;
+            --primary-bg: #fff5f0;
+            --gray-bg: #f8f9fa;
+            --gray: #6c757d;
+            --dark: #212529;
+            --white: #ffffff;
+            --border: #e9ecef;
+        }
+
+        /* Button Styles - ONLY THESE ARE CLICKABLE */
+        .btn-primary, .btn-secondary, .btn-read {
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 14px 36px;
+            border-radius: 4px;
+            font-size: 16px;
+            box-shadow: 0 4px 15px rgba(251, 100, 27, 0.3);
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(251, 100, 27, 0.4); }
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 24px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .btn-secondary:hover { background: var(--primary); color: white; transform: translateY(-2px); }
+        .btn-read {
+            color: var(--primary);
+            font-weight: 500;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .btn-read:hover { gap: 10px; color: var(--primary-dark); }
+
+        /* Section 1: Hero Blog Banner with Background Image */
+        .hero-blog {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('e7.webp');
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+            margin: 40px 0;
+            padding: 100px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-blog h1 { font-size: 56px; font-weight: 800; color: white; margin-bottom: 20px; }
+        .hero-blog p { font-size: 18px; color: #cbd5e1; margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto; }
+        .stats-blog {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        .stat-item { text-align: center; color: white; }
+        .stat-number { font-size: 32px; font-weight: 800; color: var(--primary); }
+        .stat-label { font-size: 14px; opacity: 0.8; }
+
+        /* Section 2: E-Commerce Categories - NOT CLICKABLE */
+        .categories-section { padding: 60px 0; }
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 16px;
+            color: var(--dark);
+        }
+        .section-sub {
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 48px;
+            font-size: 16px;
+        }
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        .category-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+            cursor: default;
+        }
+        .category-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .category-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--primary-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 28px;
+            color: var(--primary);
+        }
+        .category-card h3 { font-size: 18px; margin-bottom: 8px; }
+        .category-card p { color: var(--gray); font-size: 12px; }
+
+        /* Section 3: Featured Article - NOT CLICKABLE */
+        .featured-section { padding: 40px 0; }
+        .featured-card {
+            display: flex;
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+            cursor: default;
+        }
+        .featured-img { flex: 1; min-height: 380px; background-size: cover; background-position: center; }
+        .featured-content { flex: 1; padding: 40px; }
+        .featured-badge {
+            display: inline-block;
+            background: var(--primary-bg);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .featured-content h2 { font-size: 28px; margin-bottom: 15px; line-height: 1.3; }
+        .post-meta {
+            display: flex;
+            gap: 20px;
+            margin: 15px 0;
+            color: var(--gray);
+            font-size: 13px;
+            flex-wrap: wrap;
+        }
+
+        /* Section 4: Latest Articles - NOT CLICKABLE */
+        .articles-section { padding: 60px 0; }
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .article-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: 0.3s;
+            border: 1px solid var(--border);
+            cursor: default;
+        }
+        .article-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
+        .article-img { height: 200px; overflow: hidden; }
+        .article-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .article-card:hover .article-img img { transform: scale(1.05); }
+        .article-content { padding: 24px; }
+        .article-category {
+            display: inline-block;
+            background: var(--primary-bg);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .article-content h3 { font-size: 18px; margin-bottom: 12px; line-height: 1.4; }
+        .article-excerpt { color: var(--gray); font-size: 13px; line-height: 1.5; margin-bottom: 15px; }
+
+        /* Section 5: Seller Success Stories - 3 Cards + 2 in Featured = 5 Total */
+        .stories-section { padding: 60px 0; background: var(--gray-bg); border-radius: 16px; margin: 40px 0; }
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .story-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            transition: 0.3s;
+            border: 1px solid var(--border);
+            cursor: default;
+        }
+        .story-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
+        .story-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 15px;
+        }
+        .story-quote { font-size: 14px; color: var(--gray); font-style: italic; margin: 15px 0; line-height: 1.5; }
+        .story-name { font-weight: 700; color: var(--dark); }
+        .story-business { font-size: 12px; color: var(--primary); }
+
+        /* Section 6: E-Commerce Tips & Tricks - NOT CLICKABLE */
+        .tips-section { padding: 60px 0; }
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        .tip-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            border: 1px solid var(--border);
+            transition: 0.3s;
+            cursor: default;
+        }
+        .tip-card:hover { transform: translateX(5px); border-color: var(--primary); }
+        .tip-number {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-bg);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        .tip-content h3 { font-size: 18px; margin-bottom: 8px; }
+        .tip-content p { color: var(--gray); font-size: 13px; line-height: 1.5; }
+
+        /* Section 7: Newsletter */
+        .newsletter-blog {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 16px;
+            padding: 60px;
+            margin: 60px 0;
+            text-align: center;
+            color: white;
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 15px;
+            max-width: 550px;
+            margin: 30px auto 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .newsletter-input {
+            flex: 1;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            min-width: 250px;
+        }
+        .error-msg { color: #ffdd99; font-size: 12px; margin-top: 10px; }
+
+        /* Section 8: Trending Topics - NOT CLICKABLE */
+        .trending-section { padding: 60px 0; }
+        .trending-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        .trending-tag {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: 0.3s;
+            border: 1px solid var(--border);
+            cursor: default;
+        }
+        .trending-tag:hover { transform: translateY(-3px); border-color: var(--primary); }
+        .trending-tag i { font-size: 28px; margin-bottom: 10px; display: block; color: var(--primary); }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .articles-grid, .stories-grid, .trending-grid { grid-template-columns: repeat(2, 1fr); }
+            .categories-grid { grid-template-columns: repeat(2, 1fr); }
+            .featured-card { flex-direction: column; }
+            .featured-img { min-height: 280px; }
+            .tips-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 0 20px; }
+            .hero-blog h1 { font-size: 32px; }
+            .hero-blog { padding: 50px 30px; }
+            .articles-grid, .stories-grid, .trending-grid, .categories-grid { grid-template-columns: 1fr; }
+            .featured-content { padding: 25px; }
+            .featured-content h2 { font-size: 22px; }
+            .newsletter-form { flex-direction: column; align-items: center; }
+            .stats-blog { gap: 20px; }
+            .stat-number { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER PLACEHOLDER - Header will load here -->
+<div id="header-placeholder"></div>
+
+<div class="container">
+    <!-- Section 1: Hero Blog Banner with Background Image -->
+    <div class="hero-blog animate-scale">
+        <h1 class="animate-up delay-1">E-Commerce Seller Blog</h1>
+        <p class="animate-up delay-2">Actionable tips, success stories, and strategies to grow your online business</p>
+        <div class="stats-blog animate-up delay-3">
+            <div class="stat-item"><div class="stat-number">500+</div><div class="stat-label">Articles Published</div></div>
+            <div class="stat-item"><div class="stat-number">1.2M+</div><div class="stat-label">Monthly Readers</div></div>
+            <div class="stat-item"><div class="stat-number">50K+</div><div class="stat-label">Seller Success Stories</div></div>
+        </div>
+    </div>
+
+    <!-- Section 2: E-Commerce Categories (NOT CLICKABLE) -->
+    <div class="categories-section">
+        <h2 class="section-title animate-up">Browse by Topic</h2>
+        <p class="section-sub animate-up">Everything you need to succeed in e-commerce</p>
+        <div class="categories-grid">
+            <div class="category-card animate-left delay-1"><div class="category-icon"><i class="fas fa-chart-line"></i></div><h3>Selling Strategies</h3><p>Boost your sales</p></div>
+            <div class="category-card animate-up delay-2"><div class="category-icon"><i class="fas fa-truck"></i></div><h3>Shipping & Logistics</h3><p>Deliver faster</p></div>
+            <div class="category-card animate-down delay-3"><div class="category-icon"><i class="fas fa-bullhorn"></i></div><h3>Marketing Tips</h3><p>Reach more customers</p></div>
+            <div class="category-card animate-right delay-4"><div class="category-icon"><i class="fas fa-chart-line"></i></div><h3>Analytics & Insights</h3><p>Data-driven decisions</p></div>
+        </div>
+    </div>
+
+    <!-- Section 3: Featured Article (NOT CLICKABLE) -->
+    <div class="featured-section animate-up">
+        <div class="featured-card">
+            <div class="featured-img" style="background-image: url('e6.webp');"></div>
+            <div class="featured-content">
+                <span class="featured-badge">⭐ FEATURED SUCCESS STORY</span>
+                <h2>How a Small Business Scaled from ₹0 to ₹5 Crore in 12 Months</h2>
+                <div class="post-meta">
+                    <span><i class="far fa-calendar-alt"></i> March 15, 2024</span>
+                    <span><i class="far fa-user"></i> By Priya Mehta</span>
+                    <span><i class="far fa-clock"></i> 10 min read</span>
+                </div>
+                <p style="color: var(--gray); margin-bottom: 20px;">Discover the exact strategies this seller used to optimize product listings, leverage festive sales, and build a brand that now serves 50,000+ customers nationwide.</p>
+                <a href="404.html" class="btn-read">Read Full Story →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 4: Latest Articles (NOT CLICKABLE) -->
+    <div class="articles-section">
+        <h2 class="section-title animate-up">📖 Latest from Our Blog</h2>
+        <div class="articles-grid">
+            <div class="article-card animate-left delay-1">
+                <div class="article-img"><img src="e5.webp" alt="Article"></div>
+                <div class="article-content">
+                    <span class="article-category">Selling Strategies</span>
+                    <h3>10 Proven Ways to Increase Your Conversion Rate in 2024</h3>
+                    <p class="article-excerpt">Learn how to optimize product pages, improve checkout experience, and turn visitors into paying customers.</p>
+                    <div class="post-meta" style="margin: 10px 0;"><span><i class="far fa-calendar-alt"></i> Mar 12, 2024</span><span><i class="far fa-user"></i> By Rajesh Kumar</span></div>
+                    <a href="404.html" class="btn-read">Read More →</a>
+                </div>
+            </div>
+            <div class="article-card animate-up delay-2">
+                <div class="article-img"><img src="e4.webp" alt="Article"></div>
+                <div class="article-content">
+                    <span class="article-category">Marketing Tips</span>
+                    <h3>How to Master Social Media Marketing for Your Online Store</h3>
+                    <p class="article-excerpt">Instagram, Facebook, and YouTube strategies that actually work for e-commerce sellers in 2024.</p>
+                    <div class="post-meta" style="margin: 10px 0;"><span><i class="far fa-calendar-alt"></i> Mar 10, 2024</span><span><i class="far fa-user"></i> By Sneha Reddy</span></div>
+                    <a href="404.html" class="btn-read">Read More →</a>
+                </div>
+            </div>
+            <div class="article-card animate-right delay-3">
+                <div class="article-img"><img src="e3.webp" alt="Article"></div>
+                <div class="article-content">
+                    <span class="article-category">Shipping & Logistics</span>
+                    <h3>Reduce Shipping Costs by 30%: A Complete Guide</h3>
+                    <p class="article-excerpt">Expert tips on packaging, carrier selection, and fulfillment strategies to maximize your profits.</p>
+                    <div class="post-meta" style="margin: 10px 0;"><span><i class="far fa-calendar-alt"></i> Mar 8, 2024</span><span><i class="far fa-user"></i> By Amit Sharma</span></div>
+                    <a href="404.html" class="btn-read">Read More →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 5: Seller Success Stories - 5 Total (3 here + 2 in featured = 5) -->
+    <div class="stories-section">
+        <h2 class="section-title animate-up">🌟 Real Seller Success Stories</h2>
+        <p class="section-sub animate-up">Inspiring journeys of entrepreneurs who built thriving businesses</p>
+        <div class="stories-grid">
+            <div class="story-card animate-left delay-1"><img src="singlepic1.webp" class="story-img"><div class="story-quote">"Started with ₹10,000, now doing ₹50 lakhs monthly. This platform changed my life!"</div><div class="story-name">Rahul Sharma</div><div class="story-business">Electronics Seller, Mumbai</div><a href="404.html" class="btn-read" style="margin-top: 15px; display: inline-block;">Read Story →</a></div>
+            <div class="story-card animate-up delay-2"><img src="singlepic2.webp" class="story-img"><div class="story-quote">"From home kitchen to pan-India brand. The support and tools are incredible."</div><div class="story-name">Neha Gupta</div><div class="story-business">Home Decor Seller, Delhi</div><a href="404.html" class="btn-read" style="margin-top: 15px; display: inline-block;">Read Story →</a></div>
+            <div class="story-card animate-right delay-3"><img src="singlepic3.webp" class="story-img"><div class="story-quote">"Crossed ₹1 crore in first year! The platform helped me reach millions of customers."</div><div class="story-name">Vikram Singh</div><div class="story-business">Fashion Seller, Bangalore</div><a href="404.html" class="btn-read" style="margin-top: 15px; display: inline-block;">Read Story →</a></div>
+        </div>
+        <!-- Additional Success Stories Row -->
+        <div class="stories-grid" style="margin-top: 30px;">
+            <div class="story-card animate-left delay-4"><img src="ecom1.webp" class="story-img"><div class="story-quote">"From zero to 10,000 orders in 6 months. The seller support team is amazing!"</div><div class="story-name">Anjali Patel</div><div class="story-business">Jewelry Seller, Jaipur</div><a href="404.html" class="btn-read" style="margin-top: 15px; display: inline-block;">Read Story →</a></div>
+            <div class="story-card animate-up delay-5"><img src="ecom2.webp" class="story-img"><div class="story-quote">"Stackly helped me turn my passion into a profitable business. Grateful forever!"</div><div class="story-name">Ramesh Kumar</div><div class="story-business">Handicrafts Seller, Varanasi</div><a href="404.html" class="btn-read" style="margin-top: 15px; display: inline-block;">Read Story →</a></div>
+            <div class="story-card animate-right delay-1"><img src="ecom3.webp" class="story-img"><div class="story-quote">"Achieved 500% growth in first year. The analytics tools are game-changing!"</div><div class="story-name">Meera Iyer</div><div class="story-business">Beauty Products Seller, Chennai</div><a href="404.html" class="btn-read" style="margin-top: 15px; display: inline-block;">Read Story →</a></div>
+        </div>
+    </div>
+
+    <!-- Section 6: E-Commerce Tips & Tricks (NOT CLICKABLE) -->
+    <div class="tips-section">
+        <h2 class="section-title animate-up">💡 Quick E-Commerce Tips</h2>
+        <div class="tips-grid">
+            <div class="tip-card animate-left delay-1"><div class="tip-number">1</div><div class="tip-content"><h3>Optimize Product Titles</h3><p>Use keywords customers actually search for. Include brand, size, color, and key features.</p><a href="404.html" class="btn-read">Learn More →</a></div></div>
+            <div class="tip-card animate-right delay-2"><div class="tip-number">2</div><div class="tip-content"><h3>High-Quality Images Matter</h3><p>Products with professional photos get 3x more sales. Use multiple angles and lifestyle shots.</p><a href="404.html" class="btn-read">Learn More →</a></div></div>
+            <div class="tip-card animate-left delay-3"><div class="tip-number">3</div><div class="tip-content"><h3>Respond to Reviews</h3><p>Engage with customer feedback. Positive reviews build trust, negative ones show you care.</p><a href="404.html" class="btn-read">Learn More →</a></div></div>
+            <div class="tip-card animate-right delay-4"><div class="tip-number">4</div><div class="tip-content"><h3>Leverage Festive Sales</h3><p>Plan inventory and promotions 2 months ahead. Festive season contributes 40% of annual sales.</p><a href="404.html" class="btn-read">Learn More →</a></div></div>
+        </div>
+    </div>
+
+    <!-- Section 7: Newsletter -->
+    <div class="newsletter-blog animate-scale">
+        <h2>📧 Get Weekly E-Commerce Insights</h2>
+        <p>Subscribe to our newsletter and stay ahead of the competition</p>
+        <div class="newsletter-form">
+            <input type="email" id="blogEmail" placeholder="Enter your email address" class="newsletter-input">
+            <a href="#" id="blogSubscribeBtn" class="btn-primary" style="background:white; color:var(--primary);">Subscribe →</a>
+        </div>
+        <div id="blogEmailError" class="error-msg"></div>
+        <p style="margin-top: 15px; font-size: 12px;">🔒 No spam. Unsubscribe anytime. 50,000+ sellers already subscribed.</p>
+    </div>
+
+    <!-- Section 8: Trending Topics (NOT CLICKABLE) -->
+    <div class="trending-section">
+        <h2 class="section-title animate-up">🔥 Trending in E-Commerce</h2>
+        <div class="trending-grid">
+            <div class="trending-tag animate-left delay-1"><i class="fas fa-robot"></i><span>AI in E-Commerce</span><p style="font-size:12px; margin-top:5px;">245 articles</p></div>
+            <div class="trending-tag animate-up delay-2"><i class="fas fa-mobile-alt"></i><span>Mobile Commerce</span><p style="font-size:12px; margin-top:5px;">198 articles</p></div>
+            <div class="trending-tag animate-down delay-3"><i class="fas fa-box"></i><span>Sustainable Packaging</span><p style="font-size:12px; margin-top:5px;">167 articles</p></div>
+            <div class="trending-tag animate-right delay-4"><i class="fas fa-chart-line"></i><span>Cross-Border Selling</span><p style="font-size:12px; margin-top:5px;">134 articles</p></div>
+        </div>
+    </div>
+
+    <!-- Load More Button -->
+    <div style="text-align: center; padding: 40px 0 80px;">
+        <a href="404.html" class="btn-secondary">Load More Articles →</a>
+    </div>
+</div>
+
+<!-- FOOTER PLACEHOLDER - Footer will load here -->
+<div id="footer-placeholder"></div>
+
+<script>
+
+    // Load Header and Footer dynamically
+    document.addEventListener('DOMContentLoaded', function() {
+        // Load Header
+        fetch('header.html')
+            .then(response => {
+                if (!response.ok) throw new Error('Header not found');
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+                // Initialize header functionality after loading
+                initHeader();
+            })
+            .catch(error => {
+                console.error('Error loading header:', error);
+                document.getElementById('header-placeholder').innerHTML = '<div style="background:#ff6b6b; color:white; padding:10px; text-align:center;">Header failed to load</div>';
+            });
+
+        // Load Footer
+        fetch('footer.html')
+            .then(response => {
+                if (!response.ok) throw new Error('Footer not found');
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+                // Initialize footer functionality after loading
+                initFooter();
+            })
+            .catch(error => {
+                console.error('Error loading footer:', error);
+                document.getElementById('footer-placeholder').innerHTML = '<div style="background:#1a1a2e; color:#a0aec0; padding:20px; text-align:center;">Footer failed to load</div>';
+            });
+    });
+
+    // Initialize Header Functions (Hamburger Menu, Navigation, etc.)
+    function initHeader() {
+        // Hamburger Menu Toggle
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        if (hamburgerBtn && mobileMenu) {
+            hamburgerBtn.addEventListener('click', function() {
+                this.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            });
+        }
+
+        // Navigation Buttons
+        document.querySelectorAll('.nav-btn, .mobile-nav-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const page = this.getAttribute('data-page');
+                if (page) {
+                    window.location.href = page + '.html';
+                }
+            });
+        });
+
+        // Login Button
+        const loginBtn = document.getElementById('loginBtn');
+        if (loginBtn) {
+            loginBtn.addEventListener('click', () => window.location.href = 'login.html');
+        }
+
+        // Get Started Button
+        const getStartedBtn = document.getElementById('getStartedBtn');
+        if (getStartedBtn) {
+            getStartedBtn.addEventListener('click', () => window.location.href = 'signup.html');
+        }
+
+        // Logo Click
+        const logoSect = document.querySelector('.logo-section');
+        if (logoSect) {
+            logoSect.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.location.href = 'index.html';
+            });
+        }
+    }
+
+    // Initialize Footer Functions (Newsletter, etc.)
+    function initFooter() {
+        const subscribeBtn = document.getElementById('footerSubscribeBtn');
+        const emailInput = document.getElementById('footerEmail');
+        const emailError = document.getElementById('footerEmailError');
+
+        function validateEmail(email) {
+            return /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/.test(email);
+        }
+
+        if (subscribeBtn) {
+            subscribeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const email = emailInput.value.trim();
+                
+                if (!email) {
+                    emailError.classList.add('show');
+                    emailError.textContent = 'Please enter your email address';
+                    emailInput.classList.add('error');
+                } else if (!validateEmail(email)) {
+                    emailError.classList.add('show');
+                    emailError.textContent = 'Please enter a valid email address';
+                    emailInput.classList.add('error');
+                } else {
+                    emailError.classList.remove('show');
+                    emailInput.classList.remove('error');
+                    window.location.href = '404.html';
+                }
+            });
+        }
+
+        if (emailInput) {
+            emailInput.addEventListener('input', function() {
+                if (this.value.trim()) {
+                    emailError.classList.remove('show');
+                    this.classList.remove('error');
+                }
+            });
+        }
+    }
+
+    // Handle Window Resize (Close mobile menu on resize)
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (hamburgerBtn && mobileMenu) {
+                hamburgerBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+    });
+
+    //====================================================================
+    // Newsletter Subscription with Validation
+    function validateEmail(email) {
+        return /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/.test(email);
+    }
+
+    const subscribeBtn = document.getElementById('blogSubscribeBtn');
+    const emailInput = document.getElementById('blogEmail');
+    const emailError = document.getElementById('blogEmailError');
+
+    if (subscribeBtn) {
+        subscribeBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const email = emailInput.value.trim();
+            if (!email) {
+                emailError.textContent = 'Please enter your email address';
+                emailInput.style.border = '1px solid #ffaa66';
+            } else if (!validateEmail(email)) {
+                emailError.textContent = 'Please enter a valid email address';
+                emailInput.style.border = '1px solid #ffaa66';
+            } else {
+                emailError.textContent = '';
+                emailInput.style.border = 'none';
+                window.location.href = '404.html';
+            }
+        });
+    }
+
+    if (emailInput) {
+        emailInput.addEventListener('input', function() {
+            if (this.value.trim()) {
+                emailError.textContent = '';
+                this.style.border = 'none';
+            }
+        });
+    }
+
+    // Scroll Animation for all elements
+    const animatedElements = document.querySelectorAll('.animate-left, .animate-right, .animate-up, .animate-down, .animate-scale');
+    const scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    animatedElements.forEach(el => {
+        scrollObserver.observe(el);
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+            el.classList.add('visible');
+        }
+    });
+</script>
+</body>
+</html>

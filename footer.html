@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <title>Stackly Footer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: #1a1a2e;
+            color: #e2e8f0;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 24px 30px;
+            overflow-x: hidden;
+        }
+
+        /* Footer Grid */
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        /* Footer Columns */
+        .footer-col h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        /* Logo Section - Increased Size */
+        .footer-logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-logo a {
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .footer-logo img {
+            height: 75px;
+            width: auto;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            transition: opacity 0.3s;
+        }
+
+        .footer-logo img:hover {
+            opacity: 0.85;
+        }
+
+        .footer-col p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #a0aec0;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: #a0aec0;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .footer-col ul li a:hover {
+            color: #ff6b6b;
+            transform: translateX(5px);
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e2e8f0;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: #ff6b6b;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            margin-top: 20px;
+        }
+
+        .newsletter h4 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            outline: none;
+        }
+
+        .newsletter-input::placeholder {
+            color: #a0aec0;
+        }
+
+        .newsletter-input:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid #ff6b6b;
+        }
+
+        .newsletter-input.error {
+            border: 1px solid #ff6b6b;
+        }
+
+        .newsletter-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .newsletter-btn:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        .error-message {
+            font-size: 12px;
+            color: #ff6b6b;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* Payment Methods */
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .payment-methods img {
+            height: 30px;
+            width: auto;
+            background: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            opacity: 0.8;
+            transition: 0.3s;
+        }
+
+        .payment-methods img:hover {
+            opacity: 1;
+        }
+
+        /* Footer Bottom */
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .copyright {
+            font-size: 13px;
+            color: #a0aec0;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #a0aec0;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #ff6b6b;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-container {
+                padding: 40px 20px 25px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 35px;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-input {
+                width: 100%;
+            }
+
+            .newsletter-btn {
+                width: 100%;
+            }
+
+            .payment-methods {
+                justify-content: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .footer-links {
+                justify-content: center;
+            }
+
+            /* Increased Logo Size for Mobile */
+            .footer-logo img {
+                height: 65px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-container {
+                padding: 30px 16px 20px;
+            }
+
+            .footer-grid {
+                gap: 30px;
+            }
+
+            .copyright {
+                font-size: 12px;
+            }
+
+            .footer-links a {
+                font-size: 12px;
+            }
+
+            .payment-methods {
+                gap: 12px;
+            }
+
+            .payment-methods img {
+                height: 25px;
+            }
+
+            /* Even Larger Logo for Small Screens */
+            .footer-logo img {
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Footer Only -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-grid">
+            <!-- Column 1: Logo & About - Logo Redirects to home.html -->
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <a href="home.html">
+                        <img src="Stackly.webp" alt="Stackly Logo" onerror="this.src='https://placehold.co/180x75/ff6b6b/white?text=STACKLY'">
+                    </a>
+                </div>
+                <p>Your premier e-commerce destination for quality products at best prices. Shop with confidence and enjoy seamless shopping experience.</p>
+                <div class="social-links">
+                    <a href="404.html"><i class="fab fa-facebook-f"></i></a>
+                    <a href="404.html"><i class="fab fa-twitter"></i></a>
+                    <a href="404.html"><i class="fab fa-instagram"></i></a>
+                    <a href="404.html"><i class="fab fa-youtube"></i></a>
+                    <a href="404.html"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <!-- Column 2: Quick Links - Same as Navbar -->
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="deals.html">Deals</a></li>
+                    <li><a href="support.html">Support</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Customer Service -->
+            <div class="footer-col">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="404.html">Contact Us</a></li>
+                    <li><a href="404.html">FAQs</a></li>
+                    <li><a href="404.html">Shipping Policy</a></li>
+                    <li><a href="404.html">Returns & Refunds</a></li>
+                    <li><a href="404.html">Track Order</a></li>
+                    <li><a href="404.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 4: Newsletter & Payment -->
+            <div class="footer-col">
+                <h3>Stay Updated</h3>
+                <div class="newsletter">
+                    <h4>Subscribe to our newsletter</h4>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email address" class="newsletter-input" id="footerEmail">
+                        <button class="newsletter-btn" id="footerSubscribeBtn">Subscribe</button>
+                    </div>
+                    <div id="footerEmailError" class="error-message">Please enter a valid email address</div>
+                </div>
+                <div class="payment-methods">
+                    <img src="https://placehold.co/40x25/ffffff/1a1a2e?text=VISA" alt="Visa">
+                    <img src="https://placehold.co/40x25/ffffff/1a1a2e?text=MC" alt="Mastercard">
+                    <img src="https://placehold.co/40x25/ffffff/1a1a2e?text=UPI" alt="UPI">
+                    <img src="https://placehold.co/40x25/ffffff/1a1a2e?text=PayPal" alt="PayPal">
+                    <img src="https://placehold.co/40x25/ffffff/1a1a2e?text=Amex" alt="Amex">
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="copyright">
+                &copy; 2026 Stackly. All rights reserved. | Made with <i class="fas fa-heart" style="color: #ff6b6b;"></i> for e-commerce
+            </div>
+            <div class="footer-links">
+                <a href="404.html">Terms of Service</a>
+                <a href="404.html">Privacy Policy</a>
+                <a href="404.html">Cookie Policy</a>
+                <a href="404.html">Sitemap</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Newsletter Subscription - Redirects to 404.html on valid email
+    const subscribeBtn = document.getElementById('footerSubscribeBtn');
+    const emailInput = document.getElementById('footerEmail');
+    const emailError = document.getElementById('footerEmailError');
+
+    function validateEmail(email) {
+        return /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/.test(email);
+    }
+
+    if (subscribeBtn) {
+        subscribeBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const email = emailInput.value.trim();
+            
+            if (!email) {
+                emailError.classList.add('show');
+                emailInput.classList.add('error');
+                emailError.textContent = 'Please enter your email address';
+            } else if (!validateEmail(email)) {
+                emailError.classList.add('show');
+                emailInput.classList.add('error');
+                emailError.textContent = 'Please enter a valid email address (e.g., name@example.com)';
+            } else {
+                emailError.classList.remove('show');
+                emailInput.classList.remove('error');
+                // Redirect to 404.html on valid email
+                window.location.href = '404.html';
+            }
+        });
+    }
+
+    if (emailInput) {
+        emailInput.addEventListener('input', function() {
+            if (this.value.trim()) {
+                emailError.classList.remove('show');
+                this.classList.remove('error');
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

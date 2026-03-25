@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <title>Start Selling Online | E-Commerce Seller Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #ffffff;
+            color: #111;
+            line-height: 1.5;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            overflow-x: hidden;
+        }
+
+        /* Animation Classes - Will animate on both scroll directions */
+        .animate-left, .animate-right, .animate-up, .animate-down, .animate-scale {
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .animate-left { transform: translateX(-60px); }
+        .animate-right { transform: translateX(60px); }
+        .animate-up { transform: translateY(50px); }
+        .animate-down { transform: translateY(-50px); }
+        .animate-scale { transform: scale(0.8); }
+        
+        .visible {
+            opacity: 1;
+            transform: translateX(0) translateY(0) scale(1);
+        }
+
+        /* Delay Classes */
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+        .delay-5 { transition-delay: 0.5s; }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+            padding: 60px 0;
+            flex-wrap: wrap;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-badge {
+            background: #e6f7e6;
+            color: #067d62;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 4px;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: 44px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .highlight {
+            color: #fb641b;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #565959;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .btn-start {
+            display: inline-block;
+            background: #fb641b;
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-start:hover {
+            background: #e05a16;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(251, 100, 27, 0.3);
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .hero-image img:hover {
+            transform: scale(1.02);
+        }
+
+        /* Section 2 - Continuously Moving Horizontal Scrolling (Infinite) */
+        .scroll-infinite {
+            background: #ffffff;
+            padding: 40px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .scroll-track {
+            display: inline-block;
+            animation: scrollInfinite 25s linear infinite;
+            white-space: nowrap;
+        }
+
+        .scroll-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollInfinite {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .scroll-card {
+            display: inline-block;
+            background: transparent;
+            padding: 15px 25px;
+            margin: 0 10px;
+            text-align: center;
+            cursor: default;
+            transition: transform 0.3s;
+        }
+
+        .scroll-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .scroll-card img {
+            width: 60px;
+            height: 60px;
+            border-radius: 0;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto 8px;
+        }
+
+        .scroll-card strong {
+            display: block;
+            font-size: 16px;
+            color: #111;
+        }
+
+        .scroll-card span {
+            display: block;
+            font-size: 13px;
+            color: #666;
+        }
+
+        /* Section 3 - Shipping Cards Grid */
+        .shipping-section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .shipping-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .shipping-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+            color: inherit;
+            border: 1px solid #e7e7e7;
+        }
+
+        .shipping-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-color: #fb641b;
+        }
+
+        .shipping-card img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin-bottom: 12px;
+            object-fit: cover;
+        }
+
+        .shipping-card h3 {
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .price-old {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 12px;
+        }
+
+        .price-new {
+            color: #fb641b;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 6px 0;
+        }
+
+        .save-text {
+            color: #067d62;
+            font-weight: 600;
+            font-size: 11px;
+        }
+
+        .common-btn {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            background: transparent;
+            border: 1px solid #fb641b;
+            color: #fb641b;
+            padding: 12px 32px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            background: #fb641b;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(251, 100, 27, 0.2);
+        }
+
+        /* Long Sentence */
+        .long-sentence {
+            text-align: center;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, #fef7f0, #fff);
+            border-radius: 24px;
+            margin: 40px 0;
+        }
+
+        .long-sentence h3 {
+            font-size: 26px;
+            font-weight: 500;
+            color: #111;
+            max-width: 1000px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .long-sentence .highlight-number {
+            color: #fb641b;
+            font-weight: 700;
+        }
+
+        /* Stats Section with Counting */
+        .stats-section {
+            padding: 60px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            text-align: center;
+        }
+
+        .stat-item {
+            transition: transform 0.3s ease;
+            cursor: default;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 42px;
+            font-weight: 800;
+            color: #fb641b;
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #565959;
+            margin-top: 12px;
+            line-height: 1.4;
+        }
+
+        /* Testimonials with Single Button */
+        .testimonials-section {
+            padding: 60px 0;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .testimonial-card {
+            background: #faf9fc;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            border: 1px solid #e7e7e7;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .testimonial-video {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .single-video-btn {
+            background: #fb641b;
+            color: white;
+            border: none;
+            padding: 8px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+            margin: 8px 0;
+        }
+
+        .single-video-btn:hover {
+            background: #e05a16;
+            transform: scale(1.05);
+        }
+
+        .testimonial-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 12px 0 4px;
+        }
+
+        .testimonial-card p {
+            font-size: 13px;
+            color: #565959;
+        }
+
+        .testimonial-quote {
+            color: #fb641b;
+            font-size: 13px;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* Short Sentence */
+        .short-sentence {
+            text-align: center;
+            padding: 48px 0;
+            cursor: default;
+        }
+
+        .short-sentence h2 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #111;
+        }
+
+        /* Newsletter */
+        .newsletter-section {
+            background: #fef7f0;
+            border-radius: 24px;
+            padding: 48px 40px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .single-line-form {
+            display: flex;
+            gap: 12px;
+            max-width: 500px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 14px 20px;
+            border: 1px solid #d6d6d6;
+            border-radius: 8px;
+            font-size: 16px;
+            min-width: 250px;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: #fb641b;
+        }
+
+        .newsletter-input.error {
+            border-color: #ff4444;
+        }
+
+        .error-message {
+            color: #ff4444;
+            font-size: 12px;
+            margin-top: 8px;
+            text-align: center;
+        }
+
+        .newsletter-btn {
+            display: inline-block;
+            background: #fb641b;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-btn:hover {
+            background: #e05a16;
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(251, 100, 27, 0.3);
+        }
+
+        .spam-note {
+            font-size: 12px;
+            color: #888;
+            margin-top: 16px;
+        }
+
+        /* Final CTA */
+        .final-cta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+            padding: 60px 0;
+            flex-wrap: wrap;
+        }
+
+        .cta-content {
+            flex: 1;
+            text-align: left;
+        }
+
+        .cta-content h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .cta-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .cta-image img {
+            max-width: 100%;
+            border-radius: 16px;
+            transition: transform 0.3s;
+            cursor: default;
+        }
+
+        .cta-image img:hover {
+            transform: scale(1.02);
+        }
+
+        /* Section 10 - Continuously Moving Images (Infinite) */
+        .image-scroll-infinite {
+            background: #f8f8f8;
+            padding: 40px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            margin-top: 40px;
+        }
+
+        .image-scroll-track {
+            display: inline-block;
+            animation: scrollInfiniteImages 30s linear infinite;
+            white-space: nowrap;
+        }
+
+        .image-scroll-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollInfiniteImages {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .image-card {
+            display: inline-block;
+            margin: 0 20px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .image-card:hover {
+            transform: scale(1.05);
+        }
+
+        .image-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 3px solid white;
+        }
+
+        /* New Unique Sections */
+        .zigzag-section {
+            padding: 60px 0;
+        }
+
+        .zigzag-item {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+
+        .zigzag-item.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .zigzag-content {
+            flex: 1;
+        }
+
+        .zigzag-content h3 {
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        .zigzag-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .zigzag-image img {
+            max-width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            cursor: default;
+        }
+
+        .pill-section {
+            padding: 60px 0;
+            background: #f8f9fc;
+            border-radius: 48px;
+            margin: 40px 0;
+        }
+
+        .pill-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .pill-card {
+            background: white;
+            padding: 16px 28px;
+            border-radius: 60px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #111;
+        }
+
+        .pill-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .pill-card img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .timeline-section {
+            padding: 60px 0;
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #fb641b, #ffaa66);
+        }
+
+        .timeline-item {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            background: white;
+            padding: 20px;
+            cursor: default;
+        }
+
+        .timeline-dot {
+            width: 80px;
+            height: 80px;
+            background: #fb641b;
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        .timeline-item:hover .timeline-dot {
+            transform: scale(1.1);
+        }
+
+        .faq-section {
+            padding: 60px 0;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .faq-item {
+            background: #f8f9fc;
+            padding: 24px;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid #e7e7e7;
+        }
+
+        .faq-item:hover {
+            background: #fef7f0;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: 0.3s;
+            color: #666;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 100px;
+            margin-top: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .shipping-grid, .stats-grid, .testimonials-grid, .faq-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            .timeline::before { display: none; }
+            .timeline-item { flex: auto; width: 50%; margin-bottom: 30px; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 16px; }
+            .hero, .final-cta, .zigzag-item, .zigzag-item.reverse { flex-direction: column; text-align: center; gap: 30px; }
+            .cta-content { text-align: center; }
+            .hero h1 { font-size: 32px; }
+            .shipping-grid, .stats-grid, .testimonials-grid, .faq-grid { grid-template-columns: 1fr; }
+            .section-title { font-size: 28px; }
+            .newsletter-section { padding: 32px 20px; }
+            .single-line-form { flex-direction: column; align-items: center; }
+            .long-sentence h3 { font-size: 20px; }
+            .image-card img { width: 80px; height: 80px; }
+            .testimonial-video { height: 200px; }
+            .timeline-item { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER PLACEHOLDER - Header will load here -->
+<div id="header-placeholder"></div>
+
+<div class="container">
+    <!-- Section 1: Hero with Multiple Animations -->
+    <div class="hero">
+        <div class="hero-content animate-left delay-1">
+            <div class="hero-badge animate-up delay-2">✓ ZERO referral fee on over 12.5 crore products</div>
+            <h1>Start your <span class="highlight">E-Commerce</span> journey<br>with India's fastest-growing <span class="highlight">online marketplace</span></h1>
+            <p class="animate-up delay-3">Register with a valid GSTIN and an active bank account to become a seller. Reach crores of online shoppers across India and grow your <span class="highlight">digital business</span> exponentially.</p>
+            <a href="404.html" class="btn-start animate-up delay-4">Start Selling →</a>
+        </div>
+        <div class="hero-image animate-right delay-2">
+            <img src="ecom1.webp" alt="E-Commerce Seller Success">
+        </div>
+    </div>
+</div>
+
+<!-- Section 2: Continuously Moving Horizontal Scrolling -->
+<div class="scroll-infinite">
+    <div class="scroll-track">
+        <div class="scroll-card"><img src="ecom2.webp"><strong>Electronics</strong><span>4.5% fee</span></div>
+        <div class="scroll-card"><img src="ecom3.webp"><strong>Fashion</strong><span>0% fee</span></div>
+        <div class="scroll-card"><img src="ecom4.webp"><strong>Home & Kitchen</strong><span>50% off</span></div>
+        <div class="scroll-card"><img src="ecom5.webp"><strong>Gaming</strong><span>6% fee</span></div>
+        <div class="scroll-card"><img src="beauty.webp"><strong>Beauty</strong><span>5% fee</span></div>
+        <div class="scroll-card"><img src="grocery.webp"><strong>Grocery</strong><span>4% fee</span></div>
+        <div class="scroll-card"><img src="books.webp"><strong>Books</strong><span>3% fee</span></div>
+        <div class="scroll-card"><img src="ecom2.webp"><strong>Electronics</strong><span>4.5% fee</span></div>
+        <div class="scroll-card"><img src="ecom3.webp"><strong>Fashion</strong><span>0% fee</span></div>
+        <div class="scroll-card"><img src="ecom4.webp"><strong>Home & Kitchen</strong><span>50% off</span></div>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Section 3: Shipping Cards - Each card animates from different directions -->
+    <div class="shipping-section">
+        <h2 class="section-title animate-up">Easy Ship Pricing Updates</h2>
+        <div class="shipping-grid">
+            <a href="404.html" class="shipping-card animate-left delay-1"><img src="saree.webp"><h3>Saree</h3><div class="price-old">₹65</div><div class="price-new">₹55</div><div class="save-text">Save ₹10</div></a>
+            <a href="404.html" class="shipping-card animate-up delay-2"><img src="oil.webp"><h3>Oil</h3><div class="price-old">₹135</div><div class="price-new">₹120</div><div class="save-text">Save ₹15</div></a>
+            <a href="404.html" class="shipping-card animate-right delay-3"><img src="cusion.webp"><h3>Cushion Cover</h3><div class="price-old">₹186</div><div class="price-new">₹107</div><div class="save-text">Save ₹79</div></a>
+            <a href="404.html" class="shipping-card animate-scale delay-4"><img src="powerbank.webp"><h3>Power Bank</h3><div class="price-old">₹264</div><div class="price-new">₹65</div><div class="save-text">Save ₹199</div></a>
+            <a href="404.html" class="shipping-card animate-left delay-1"><img src="laptopbag.webp"><h3>Laptop Bag</h3><div class="price-old">₹1299</div><div class="price-new">₹999</div><div class="save-text">Save ₹300</div></a>
+            <a href="404.html" class="shipping-card animate-up delay-2"><img src="mobilecover.webp"><h3>Mobile Cover</h3><div class="price-old">₹499</div><div class="price-new">₹299</div><div class="save-text">Save ₹200</div></a>
+            <a href="404.html" class="shipping-card animate-right delay-3"><img src="headphone.webp"><h3>Headphones</h3><div class="price-old">₹1999</div><div class="price-new">₹1499</div><div class="save-text">Save ₹500</div></a>
+            <a href="404.html" class="shipping-card animate-scale delay-4"><img src="watchstrap.webp"><h3>Watch Strap</h3><div class="price-old">₹599</div><div class="price-new">₹399</div><div class="save-text">Save ₹200</div></a>
+            <a href="404.html" class="shipping-card animate-left delay-1"><img src="sportshoe.webp"><h3>Sports Shoes</h3><div class="price-old">₹2499</div><div class="price-new">₹1999</div><div class="save-text">Save ₹500</div></a>
+            <a href="404.html" class="shipping-card animate-up delay-2"><img src="gamingkeyboard.webp"><h3>Gaming Keyboard</h3><div class="price-old">₹3499</div><div class="price-new">₹2799</div><div class="save-text">Save ₹700</div></a>
+            <a href="404.html" class="shipping-card animate-right delay-3"><img src="wirelessmouse.webp"><h3>Wireless Mouse</h3><div class="price-old">₹899</div><div class="price-new">₹599</div><div class="save-text">Save ₹300</div></a>
+            <a href="404.html" class="shipping-card animate-scale delay-4"><img src="fashionjewelary.webp"><h3>Fashion Jewelry</h3><div class="price-old">₹1299</div><div class="price-new">₹899</div><div class="save-text">Save ₹400</div></a>
+        </div>
+        <div class="common-btn animate-up"><a href="404.html" class="btn-secondary">View All Shipping Updates →</a></div>
+    </div>
+
+    <!-- Section 4: Long Sentence - Animate from left -->
+    <div class="long-sentence animate-left">
+        <h3>India's <span class="highlight-number">e-commerce market</span> is projected to reach <span class="highlight-number">$325 billion</span> by 2030, and our platform is empowering over <span class="highlight-number">1.4 million sellers</span> to capture this massive opportunity with zero referral fees, pan-India reach, and cutting-edge seller tools.</h3>
+    </div>
+
+    <!-- Section 5: Stats with Counting Animation - Each stat animates differently -->
+    <div class="stats-section">
+        <h2 class="section-title animate-up">Build your Brand with Us</h2>
+        <div class="stats-grid">
+            <div class="stat-item animate-left delay-1"><div class="stat-number" id="stat1">0</div><div class="stat-label">Unique visitors per year</div></div>
+            <div class="stat-item animate-up delay-2"><div class="stat-number" id="stat2">0</div><div class="stat-label">Indian pincode reach</div></div>
+            <div class="stat-item animate-down delay-3"><div class="stat-number" id="stat3">0</div><div class="stat-label">Sellers achieved record sales</div></div>
+            <div class="stat-item animate-right delay-4"><div class="stat-number" id="stat4">0</div><div class="stat-label">Active sellers on platform</div></div>
+        </div>
+    </div>
+
+    <!-- Section 6: Testimonials - Each card animates from different directions -->
+    <div class="testimonials-section">
+        <h2 class="section-title animate-up">See what our sellers have to say</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card animate-left delay-1">
+                <video class="testimonial-video" id="video1" poster="singlepic1.webp"><source src="ecomvid1.mp4" type="video/mp4"></video>
+                <button class="single-video-btn" onclick="toggleVideo('video1', this)">▶ Play</button>
+                <h3>Aman Gupta</h3><p>Co-founder & CMO of <strong>boAt</strong></p><div class="testimonial-quote">"The platform helped us scale from startup to market leader"</div>
+            </div>
+            <div class="testimonial-card animate-scale delay-2">
+                <video class="testimonial-video" id="video2" poster="singlepic2.webp"><source src="ecomvid2.mp4" type="video/mp4"></video>
+                <button class="single-video-btn" onclick="toggleVideo('video2', this)">▶ Play</button>
+                <h3>Natasha Tuli</h3><p>Founder of <strong>Soulflower</strong></p><div class="testimonial-quote">"The e-commerce reach gave us customers across 18,000+ pin codes"</div>
+            </div>
+            <div class="testimonial-card animate-right delay-3">
+                <video class="testimonial-video" id="video3" poster="singlepic3.webp"><source src="ecomvid3.mp4" type="video/mp4"></video>
+                <button class="single-video-btn" onclick="toggleVideo('video3', this)">▶ Play</button>
+                <h3>Mohit Yadav</h3><p>Co-founder of <strong>Minimalist</strong></p><div class="testimonial-quote">"Zero referral fee accelerated our e-commerce growth journey"</div>
+            </div>
+        </div>
+        <div class="common-btn animate-up"><a href="404.html" class="btn-secondary">Read More Success Stories →</a></div>
+    </div>
+
+    <!-- Section 7: Short Sentence - Animate from right -->
+    <div class="short-sentence animate-right">
+        <h2><span class="highlight">25%</span> new brand owners achieve their first <span class="highlight">₹1 lakh</span> in sales within <span class="highlight">100 days</span> of launch on average</h2>
+    </div>
+
+    <!-- Section 8: Zigzag Section - Each item animates from opposite sides -->
+    <div class="zigzag-section">
+        <h2 class="section-title animate-up">How We Help You Grow</h2>
+        <div class="zigzag-item">
+            <div class="zigzag-content animate-left delay-1"><h3>🚀 0% Referral Fee</h3><p>Start selling with zero referral fee on first ₹50 lakh sales. No hidden charges, complete transparency.</p><a href="404.html" class="btn-start" style="margin-top:16px; display:inline-block;">Learn More →</a></div>
+            <div class="zigzag-image animate-right delay-2"><img src="e2.webp" alt="Zero Fee"></div>
+        </div>
+        <div class="zigzag-item reverse">
+            <div class="zigzag-content animate-right delay-1"><h3>📦 Pan-India Delivery</h3><p>Reach customers in 19,000+ pin codes with fast and reliable shipping. 99.3% coverage across India.</p><a href="404.html" class="btn-start" style="margin-top:16px; display:inline-block;">Explore →</a></div>
+            <div class="zigzag-image animate-left delay-2"><img src="e3.webp" alt="Delivery"></div>
+        </div>
+        <div class="zigzag-item">
+            <div class="zigzag-content animate-left delay-1"><h3>📊 Real-Time Analytics</h3><p>Get powerful insights about your business, track sales, monitor inventory, and optimize performance.</p><a href="404.html" class="btn-start" style="margin-top:16px; display:inline-block;">View Dashboard →</a></div>
+            <div class="zigzag-image animate-right delay-2"><img src="e4.webp" alt="Analytics"></div>
+        </div>
+    </div>
+
+    <!-- Section 9: Pill Cards - Staggered animation -->
+    <div class="pill-section">
+        <h2 class="section-title animate-up">Top Selling Categories</h2>
+        <div class="pill-grid">
+            <a href="404.html" class="pill-card animate-left delay-1"><img src="ecom2.webp"><span>Electronics</span></a>
+            <a href="404.html" class="pill-card animate-up delay-2"><img src="ecom3.webp"><span>Fashion</span></a>
+            <a href="404.html" class="pill-card animate-right delay-3"><img src="ecom4.webp"><span>Home & Kitchen</span></a>
+            <a href="404.html" class="pill-card animate-scale delay-4"><img src="ecom5.webp"><span>Gaming</span></a>
+            <a href="404.html" class="pill-card animate-left delay-1"><img src="beauty.webp"><span>Beauty</span></a>
+            <a href="404.html" class="pill-card animate-up delay-2"><img src="grocery.webp"><span>Grocery</span></a>
+            <a href="404.html" class="pill-card animate-right delay-3"><img src="books.webp"><span>Books</span></a>
+            <a href="404.html" class="pill-card animate-scale delay-4"><img src="books.webp"><span>Sports</span></a>
+        </div>
+    </div>
+
+    <!-- Section 10: Newsletter -->
+    <div class="newsletter-section animate-scale">
+        <h2>E-Commerce Newsletter!</h2>
+        <p>Subscribe to get weekly insights, success stories, and exclusive seller tips.</p>
+        <div class="single-line-form">
+            <input type="email" id="newsletterEmail" placeholder="Drop your email" class="newsletter-input">
+            <a href="#" id="subscribeBtn" class="newsletter-btn">Subscribe →</a>
+        </div>
+        <div id="emailError" class="error-message"></div>
+        <div class="spam-note">🔒 Zero spam. Unsubscribe at any time.</div>
+    </div>
+
+    <!-- Section 11: Timeline - Each item animates from different directions -->
+    <div class="timeline-section">
+        <h2 class="section-title animate-up">Your Success Journey</h2>
+        <div class="timeline">
+            <div class="timeline-item animate-left delay-1"><div class="timeline-dot">1</div><h3>Register</h3><p>Sign up with GSTIN & bank account</p></div>
+            <div class="timeline-item animate-up delay-2"><div class="timeline-dot">2</div><h3>List Products</h3><p>Upload your products for free</p></div>
+            <div class="timeline-item animate-down delay-3"><div class="timeline-dot">3</div><h3>Start Selling</h3><p>Reach millions of customers</p></div>
+            <div class="timeline-item animate-right delay-4"><div class="timeline-dot">4</div><h3>Grow Business</h3><p>Scale with our tools & insights</p></div>
+        </div>
+    </div>
+
+    <!-- Section 12: Final CTA with Image -->
+    <div class="final-cta">
+        <div class="cta-content animate-left delay-1">
+            <h2>Start selling today!</h2>
+            <p>Put your products in front of millions of customers who search for our marketplace everyday.</p>
+            <a href="404.html" class="btn-start">Start selling →</a>
+            <div class="spam-note" style="margin-top: 20px;">*GSTIN & active bank account required.</div>
+        </div>
+        <div class="cta-image animate-right delay-2">
+            <img src="e7.webp" alt="Start Selling">
+        </div>
+    </div>
+
+    <!-- Section 13: FAQ Accordion -->
+    <div class="faq-section">
+        <h2 class="section-title animate-up">Frequently Asked Questions</h2>
+        <div class="faq-grid">
+            <div class="faq-item animate-left delay-1" onclick="this.classList.toggle('active')"><div class="faq-question">How do I start selling? <span>+</span></div><div class="faq-answer">Register with GSTIN and bank account, list your products, and start selling within 24 hours.</div></div>
+            <div class="faq-item animate-right delay-2" onclick="this.classList.toggle('active')"><div class="faq-question">What are the fees? <span>+</span></div><div class="faq-answer">Zero referral fee on first ₹50L sales. No hidden charges, complete transparency.</div></div>
+            <div class="faq-item animate-left delay-3" onclick="this.classList.toggle('active')"><div class="faq-question">How do I get paid? <span>+</span></div><div class="faq-answer">Weekly settlements directly to your bank account with detailed payment reports.</div></div>
+            <div class="faq-item animate-right delay-4" onclick="this.classList.toggle('active')"><div class="faq-question">Is there seller support? <span>+</span></div><div class="faq-answer">24/7 dedicated seller support via phone, chat, and email to help you grow.</div></div>
+        </div>
+        <div class="common-btn animate-up"><a href="404.html" class="btn-secondary">View All FAQs →</a></div>
+    </div>
+</div>
+
+<!-- Section 14: Continuously Moving Images (Infinite) -->
+<div class="image-scroll-infinite">
+    <div class="image-scroll-track">
+        <a href="404.html" class="image-card"><img src="saree.webp" alt="Saree"></a>
+        <a href="404.html" class="image-card"><img src="oil.webp" alt="Oil"></a>
+        <a href="404.html" class="image-card"><img src="cusion.webp" alt="Cushion"></a>
+        <a href="404.html" class="image-card"><img src="powerbank.webp" alt="Power Bank"></a>
+        <a href="404.html" class="image-card"><img src="laptopbag.webp" alt="Laptop Bag"></a>
+        <a href="404.html" class="image-card"><img src="mobilecover.webp" alt="Mobile Cover"></a>
+        <a href="404.html" class="image-card"><img src="headphone.webp" alt="Headphones"></a>
+        <a href="404.html" class="image-card"><img src="watchstrap.webp" alt="Watch Strap"></a>
+        <a href="404.html" class="image-card"><img src="saree.webp" alt="Saree"></a>
+        <a href="404.html" class="image-card"><img src="oil.webp" alt="Oil"></a>
+    </div>
+</div>
+
+<!-- FOOTER PLACEHOLDER - Footer will load here -->
+<div id="footer-placeholder"></div>
+
+<script>
+
+    // Load Header and Footer dynamically
+    document.addEventListener('DOMContentLoaded', function() {
+        // Load Header
+        fetch('header.html')
+            .then(response => {
+                if (!response.ok) throw new Error('Header not found');
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+                // Initialize header functionality after loading
+                initHeader();
+            })
+            .catch(error => {
+                console.error('Error loading header:', error);
+                document.getElementById('header-placeholder').innerHTML = '<div style="background:#ff6b6b; color:white; padding:10px; text-align:center;">Header failed to load</div>';
+            });
+
+        // Load Footer
+        fetch('footer.html')
+            .then(response => {
+                if (!response.ok) throw new Error('Footer not found');
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+                // Initialize footer functionality after loading
+                initFooter();
+            })
+            .catch(error => {
+                console.error('Error loading footer:', error);
+                document.getElementById('footer-placeholder').innerHTML = '<div style="background:#1a1a2e; color:#a0aec0; padding:20px; text-align:center;">Footer failed to load</div>';
+            });
+    });
+
+    // Initialize Header Functions (Hamburger Menu, Navigation, etc.)
+    function initHeader() {
+        // Hamburger Menu Toggle
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        if (hamburgerBtn && mobileMenu) {
+            hamburgerBtn.addEventListener('click', function() {
+                this.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            });
+        }
+
+        // Navigation Buttons
+        document.querySelectorAll('.nav-btn, .mobile-nav-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const page = this.getAttribute('data-page');
+                if (page) {
+                    window.location.href = page + '.html';
+                }
+            });
+        });
+
+        // Login Button
+        const loginBtn = document.getElementById('loginBtn');
+        if (loginBtn) {
+            loginBtn.addEventListener('click', () => window.location.href = 'login.html');
+        }
+
+        // Get Started Button
+        const getStartedBtn = document.getElementById('getStartedBtn');
+        if (getStartedBtn) {
+            getStartedBtn.addEventListener('click', () => window.location.href = 'signup.html');
+        }
+
+        // Logo Click
+        const logoSect = document.querySelector('.logo-section');
+        if (logoSect) {
+            logoSect.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.location.href = 'index.html';
+            });
+        }
+    }
+
+    // Initialize Footer Functions (Newsletter, etc.)
+    function initFooter() {
+        const subscribeBtn = document.getElementById('footerSubscribeBtn');
+        const emailInput = document.getElementById('footerEmail');
+        const emailError = document.getElementById('footerEmailError');
+
+        function validateEmail(email) {
+            return /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/.test(email);
+        }
+
+        if (subscribeBtn) {
+            subscribeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const email = emailInput.value.trim();
+                
+                if (!email) {
+                    emailError.classList.add('show');
+                    emailError.textContent = 'Please enter your email address';
+                    emailInput.classList.add('error');
+                } else if (!validateEmail(email)) {
+                    emailError.classList.add('show');
+                    emailError.textContent = 'Please enter a valid email address';
+                    emailInput.classList.add('error');
+                } else {
+                    emailError.classList.remove('show');
+                    emailInput.classList.remove('error');
+                    window.location.href = '404.html';
+                }
+            });
+        }
+
+        if (emailInput) {
+            emailInput.addEventListener('input', function() {
+                if (this.value.trim()) {
+                    emailError.classList.remove('show');
+                    this.classList.remove('error');
+                }
+            });
+        }
+    }
+
+    // Handle Window Resize (Close mobile menu on resize)
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (hamburgerBtn && mobileMenu) {
+                hamburgerBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+    });
+
+    //====================================================================
+    // Video Toggle Function - Single Button for Each Card
+    function toggleVideo(videoId, button) {
+        const video = document.getElementById(videoId);
+        if (video.paused) {
+            video.play();
+            button.innerHTML = '⏸ Pause ';
+        } else {
+            video.pause();
+            button.innerHTML = '▶ Play ';
+        }
+    }
+
+    // Email Validation
+    function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    const subscribeBtn = document.getElementById('subscribeBtn');
+    const emailInput = document.getElementById('newsletterEmail');
+    const emailError = document.getElementById('emailError');
+
+    if (subscribeBtn) {
+        subscribeBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const email = emailInput.value.trim();
+            if (!email) {
+                emailError.textContent = 'Please enter your email address';
+                emailInput.classList.add('error');
+            } else if (!validateEmail(email)) {
+                emailError.textContent = 'Please enter a valid email address (e.g., name@example.com)';
+                emailInput.classList.add('error');
+            } else {
+                emailError.textContent = '';
+                emailInput.classList.remove('error');
+                window.location.href = '404.html';
+            }
+        });
+    }
+
+    if (emailInput) {
+        emailInput.addEventListener('input', function() {
+            if (this.value.trim()) {
+                emailError.textContent = '';
+                emailInput.classList.remove('error');
+            }
+        });
+    }
+
+    // Counting Animation for Stats
+    function animateNumber(element, start, end, duration, suffix) {
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            const current = Math.floor(progress * (end - start) + start);
+            element.textContent = current.toLocaleString() + suffix;
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        };
+        window.requestAnimationFrame(step);
+    }
+
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateNumber(document.getElementById('stat1'), 0, 300, 2000, 'M+');
+                animateNumber(document.getElementById('stat2'), 0, 99, 2000, '.3%');
+                animateNumber(document.getElementById('stat3'), 0, 38, 2000, 'K+');
+                animateNumber(document.getElementById('stat4'), 0, 14, 2000, 'L+');
+                statsObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    const statsSection = document.querySelector('.stats-section');
+    if (statsSection) statsObserver.observe(statsSection);
+
+    // Scroll Animation for all elements - Works on both scroll up and down
+    const animatedElements = document.querySelectorAll('.animate-left, .animate-right, .animate-up, .animate-down, .animate-scale');
+    const scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    animatedElements.forEach(el => {
+        scrollObserver.observe(el);
+        // Check if already visible on page load
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+            el.classList.add('visible');
+        }
+    });
+</script>
+</body>
+</html>
